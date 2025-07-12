@@ -6,7 +6,7 @@ const config = {
     draggable: true,
     dropOffBoard: 'snapback',
     position: 'start',
-    pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png',
+    pieceTheme: 'img/chesspieces/{piece}.png',
 }
 
 const board = Chessboard('board', config);
