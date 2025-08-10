@@ -7,13 +7,22 @@ import Head from 'next/head';
 
 declare global {
   interface Window {
+    // eslint-disable-next-line
     Chessboard: any;
+    // eslint-disable-next-line
     $: any;
   }
 }
 
+interface MoveOptions {
+    from: string;
+    to: string;
+    promotion: string;
+}
+
 export default function ChessBoard() {
   const boardRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line
   const boardInstanceRef = useRef<any>(null);
   const gameRef = useRef<Chess>(new Chess());
   const socketRef = useRef<WebSocket | null>(null);
@@ -129,13 +138,14 @@ export default function ChessBoard() {
              (piece.startsWith('b') && sourceRank === '2' && targetRank === '1'));
 
           // Attempt the move - only add promotion for actual promotion moves
-          const moveOptions: any = {
+          const moveOptions: MoveOptions = {
             from: source,
             to: target,
+            promotion: isPromotion ? 'q' : '' // TODO: Add promotion GUI
           };
           
           if (isPromotion) {
-            moveOptions.promotion = 'q'; // TODO: Add promotion GUI
+            moveOptions.promotion = 'q'; 
           }
 
           const move = gameRef.current.move(moveOptions);
@@ -151,7 +161,7 @@ export default function ChessBoard() {
           // Send move to backend - use UCI format (e.g., "e2e4")
           let uciMove = `${source}${target}`;
           if (isPromotion) {
-            uciMove += 'q'; // Add promotion piece (again, awating GUI implementation for other promotions)
+            uciMove += moveOptions.promotion; // Add promotion piece (again, awating GUI implementation for other promotions)
           }
           
           if (socketRef.current) {
@@ -197,7 +207,7 @@ export default function ChessBoard() {
     return () => {
       boardInstanceRef.current?.destroy();
     };
-  }, [jqueryLoaded, boardJsLoaded]);
+  }, [jqueryLoaded, boardJsLoaded, connected]);
 
   const resetGame = () => {
     gameRef.current.reset();
