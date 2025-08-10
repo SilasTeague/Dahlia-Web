@@ -32,7 +32,7 @@ export default function ChessBoard() {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:3001');
+    const socket = new WebSocket(process.env.NEXT_PUBLIC_WS_URL! || 'ws://localhost:3001');
     socketRef.current = socket;
 
     socket.onopen = () => {
