@@ -30,6 +30,7 @@ export default function ChessBoard() {
   const [jqueryLoaded, setJqueryLoaded] = useState(false);
   const [boardJsLoaded, setBoardJsLoaded] = useState(false);
   const [connected, setConnected] = useState(false);
+  const [connectedStatus, setConnectedStatus] = useState('Disconnected from backend, give Render a second');
 
   useEffect(() => {
     const socket = new WebSocket(process.env.NEXT_PUBLIC_WS_URL! || 'ws://localhost:3001');
@@ -111,6 +112,10 @@ export default function ChessBoard() {
 
   useEffect(() => {
     if (!jqueryLoaded || !boardJsLoaded || !boardRef.current) return;
+
+    if (connected) {
+      setConnectedStatus("");
+    }
 
     const config = {
       draggable: true,
@@ -236,7 +241,9 @@ export default function ChessBoard() {
             src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"
             strategy="afterInteractive"
             onLoad={() => setBoardJsLoaded(!!window.Chessboard)}
-      />
+        />
+
+        <h2 id="connection">{connectedStatus}</h2>
       
         <div id="board" ref={boardRef} style={{ width: '100%', maxWidth: '400px' }}></div>
       
