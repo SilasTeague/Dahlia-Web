@@ -245,7 +245,7 @@ export default function ChessBoard() {
 
         <h2 id="connection">{connectedStatus}</h2>
       
-        <div id="board" ref={boardRef} style={{ width: '100%', maxWidth: '400px' }}></div>
+        <div id="board" ref={boardRef} style={{ width: '100%', maxWidth: '800px' }}></div>
       
         <div style={{ marginTop: '10px' }}>
             <div id="status">{status}</div>
