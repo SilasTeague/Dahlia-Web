@@ -60,7 +60,7 @@ export class EngineProcess {
 
         this.uci.send(posCmd);
 
-        const best = await this.uci.goDepth(8);
+        const best = await this.uci.goDepth(4);
         if (best) {
           this.moves.push(best);
           this.send({ type: "engineMove", data: { move: best } });

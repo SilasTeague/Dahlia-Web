@@ -67,7 +67,7 @@ export class UCIController {
     await this.waitFor(/^readyok$/);
   }
 
-  async goDepth(depth = 10, timeout = 200000): Promise<string | null> {
+  async goDepth(depth = 4, timeout = 200000): Promise<string | null> {
     this.send(`go depth ${depth}`);
     const best = await this.waitFor(/^bestmove\s+(\S+)/, timeout);
     const m = best.match(/^bestmove\s+(\S+)/);
