@@ -32,6 +32,19 @@ export default function ChessBoard() {
   const [connected, setConnected] = useState(false);
   const [connectedStatus, setConnectedStatus] = useState('Disconnected from backend, give Render a second');
 
+  async function activateBackend() {
+    try {
+      const response = await fetch("https://dahlia-web-irbt.onrender.com");
+      if (response) {
+        console.log("Render already activated.");
+      }
+    } catch (error) {
+      console.log("Request sent to backend. Activating backend.")
+    }
+  }
+
+  activateBackend();
+
   useEffect(() => {
     const socket = new WebSocket(process.env.NEXT_PUBLIC_WS_URL! || 'ws://localhost:3001');
     socketRef.current = socket;
