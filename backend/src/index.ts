@@ -1,9 +1,18 @@
 import express from 'express';
+import cors from "cors"
 import { WebSocketServer } from 'ws';
 import { EngineProcess } from './engine/engineProcess.js';
 
 const app = express();
 const port = process.env.PORT || 3001;
+
+app.use(cors({
+  origin: "https://dahlia.silasteague.com"
+}));
+
+app.get("/health", (req, res) => {
+  res.send("OK");
+});
 
 const ENGINE_PATH = "engine/dahlia"
 
