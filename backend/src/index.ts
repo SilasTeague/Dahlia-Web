@@ -1,5 +1,5 @@
 import express from 'express';
-import cors from "cors"
+import cors from "cors";
 import { WebSocketServer } from 'ws';
 import { EngineProcess } from './engine/engineProcess.js';
 
@@ -7,7 +7,8 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(cors({
-  origin: "https://dahlia.silasteague.com"
+  origin: "https://dahlia.silasteague.com",
+  credentials: true
 }));
 
 app.get("/health", (req, res) => {
