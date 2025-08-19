@@ -1,18 +1,24 @@
+'use client';
+
+import { useEffect } from 'react';
 import ChessBoard from '@/app/components/ChessBoard';
 
 export default function Page() {
-    async function activateBackend() {
+  useEffect(() => {
+    const activateBackend = async () => {
       try {
         const response = await fetch("https://dahlia-web-irbt.onrender.com");
-        if (response) {
+        if (response.ok) {
           console.log("Render already activated.");
         }
       } catch (error) {
-        console.log("Request sent to backend. Activating backend.")
+        console.log("Request sent to backend. Activating backend.");
       }
-    }
-  
+    };
+
     activateBackend();
+  }, []);
+
   return (
     <ChessBoard />
   );

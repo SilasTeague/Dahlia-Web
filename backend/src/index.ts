@@ -11,8 +11,8 @@ app.use(cors({
   credentials: true
 }));
 
-app.get("/health", (req, res) => {
-  res.send("OK");
+app.get("/", (req, res) => {
+  res.json({ status: "ok", message: "Backend active" });
 });
 
 const ENGINE_PATH = "engine/dahlia"
